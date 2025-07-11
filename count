@@ -1,0 +1,81 @@
+import java.util.Arrays;
+
+public class CountingSort {
+    public static void sort(Integer[] array, int leftIndex, int rightIndex) {
+        if (array != null && array.length > 0 && leftIndex != rightIndex) {
+            int max = array[0];
+            int min = array[0];
+            for (int i = leftIndex; i < rightIndex; i++) {
+                if (array[i] > max)  {
+                    max = array[i];
+                } else if (array[i] < min) {
+                    min = array[i];
+                }
+            }
+            Integer[] arrayIndices = new Integer[(max-min) + 1];
+
+            for (int i = 0; i < arrayIndices.length; i ++) {
+                arrayIndices[i] = 0;
+            }
+
+            for (int i = 0; i < arrayIndices.length; i++) {
+                int j = array[i];
+                arrayIndices[j - min] ++;
+            }
+
+            int indexResp = 0;
+
+            for (int i = 0; i < arrayIndices.length; i ++) {
+                if (arrayIndices[i] != 0) {
+                    for (int j = indexResp; j < (indexResp + arrayIndices[i]); j++) {
+                        array[j] = i;
+                    }
+                    indexResp += arrayIndices[i];
+                }
+            }
+        } 
+    }
+
+    public static Integer sort2(Integer[] array, int leftIndex, int rightIndex) {
+        if (array != null && array.length > 0 && leftIndex != rightIndex) {
+            int max = array[0];
+            int min = array[0];
+            for (int i = leftIndex; i < rightIndex; i++) {
+                if (array[i] > max)  {
+                    max = array[i];
+                } else if (array[i] < min) {
+                    min = array[i];
+                }
+            }
+            Integer[] arrayIndices = new Integer[(max-min) + 1];
+
+            for (int i = 0; i < arrayIndices.length; i ++) {
+                arrayIndices[i] = 0;
+            }
+
+            for (int i = 0; i < arrayIndices.length; i++) {
+                int j = array[i];
+                arrayIndices[j - min] ++;
+            }
+
+            int indexResp = 0;
+
+            for (int i = 0; i < arrayIndices.length; i ++) {
+                if (arrayIndices[i] != 0) {
+                    for (int j = indexResp; j < (indexResp + arrayIndices[i]); j++) {
+                        array[j] = i + min;
+                    }
+                    indexResp += arrayIndices[i];
+                }
+            }
+        }
+        return array; 
+    }
+
+    public static void main(String[] args) {
+        Integer[] array = {10, 0, 8, 4};
+        Integer[] resp = sort2(array, 0, 3);
+        System.out.println(Arrays.toString(resp));
+    }
+
+}
