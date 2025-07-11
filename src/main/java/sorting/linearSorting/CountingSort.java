@@ -1,5 +1,7 @@
 package sorting.linearSorting;
 
+import java.util.Arrays;
+
 import sorting.AbstractSorting;
 
 /**
@@ -17,8 +19,71 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (array != null && array.length > 0 && leftIndex != rightIndex) {
+			Integer[] resposta = new Integer[array.length];
+			int tamanho = 0;
+			for (int i = 0; i < array.length; i++) {
+				if (array[i] > tamanho)
+					tamanho = array[i];
+			}
+			Integer[] arrayIndices = new Integer[tamanho + 1];
+
+			for (int i = 0; i < arrayIndices.length; i++) {
+				arrayIndices[i] = 0;
+			}
+
+			for (int i = 0; i < array.length; i++) {
+				int j = array[i];
+				arrayIndices[j] ++;
+			}
+
+			int indexResp = 0;
+			for (int i = 0; i <= tamanho; i++) {
+				if (arrayIndices[i] != 0) {
+					for (int j = indexResp; j < arrayIndices[i]; j ++) {
+						resposta[j] = i;
+					}
+				}
+			}
+		}
+	}
+
+	public static Integer[] print(Integer[] array, int leftIndex, int rightIndex) {
+		if (array != null && array.length > 0 && leftIndex != rightIndex) {
+			Integer[] resposta = new Integer[array.length];
+			int tamanho = 0;
+			for (int i = 0; i < array.length; i++) {
+				if (array[i] > tamanho)
+					tamanho = array[i];
+			}
+			Integer[] arrayIndices = new Integer[tamanho + 1];
+
+			for (int i = 0; i < arrayIndices.length; i++) {
+				arrayIndices[i] = 0;
+			}
+
+			for (int i = 0; i < array.length; i++) {
+				int j = array[i];
+				arrayIndices[j] ++;
+			}
+
+			int indexResp = 0;
+			for (int i = 0; i <= tamanho; i++) {
+				if (arrayIndices[i] != 0) {
+					for (int j = indexResp; j < resposta.length; j ++) {
+						resposta[j] = i;
+					}
+				}
+			}
+			return resposta;
+		}
+		return array;
+	}
+
+	public static void main(String[] args) {
+		Integer[] array = {10, 0, 8, 4};
+		Integer[] resp = print(array, 0, 3);
+		System.out.println(Arrays.toString(resp));
 	}
 
 }
