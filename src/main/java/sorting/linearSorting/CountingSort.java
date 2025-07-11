@@ -73,6 +73,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 					for (int j = indexResp; j < resposta.length; j ++) {
 						resposta[j] = i;
 					}
+					indexResp++;
 				}
 			}
 			return resposta;
