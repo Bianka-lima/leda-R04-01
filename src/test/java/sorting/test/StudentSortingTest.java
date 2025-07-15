@@ -17,6 +17,11 @@ public class StudentSortingTest {
 	private Integer[] vetorVazio = {};
 	private Integer[] vetorValoresRepetidos;
 	private Integer[] vetorValoresIguais;
+	private Integer[] vetorUnitario;
+	private Integer[] vetorDecrescente;
+	private Integer[] vetorOrdenado;
+	private Integer[] vetorDesordenado;
+	private Integer[] vetorNegativos;
 
 	public AbstractSorting<Integer> implementation;
 
@@ -28,6 +33,11 @@ public class StudentSortingTest {
 				11, 18, 36 });
 		populaVetorRepetido(new Integer[] { 4, 9, 3, 4, 0, 5, 1, 4 });
 		populaVetorIgual(new Integer[] { 6, 6, 6, 6, 6, 6 });
+		populaVetorUnitario(new Integer[] {5});
+		populaVetorDecrescente(new Integer[] {22, 21, 19, 18, 14, 0});
+		populaVetorOrdenado(new Integer[] {1, 7, 8, 12, 17, 21});
+		populaVetorDesordenado(new Integer[] {5, 0, 9, 7});
+		populaVetorNegativos(new Integer[] {-10, -22, -3, -18, 5, -7, 0});
 
 		getImplementation();
 	}
@@ -58,6 +68,31 @@ public class StudentSortingTest {
 	public void populaVetorIgual(Integer[] arrayPadrao) {
 		this.vetorValoresIguais = Arrays
 				.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+
+	public void populaVetorUnitario(Integer[] arrayPadrao) {
+		this.vetorUnitario = Arrays
+			.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+
+	public void populaVetorDecrescente(Integer[] arrayPadrao) {
+		this.vetorDecrescente = Arrays
+			.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+
+	public void populaVetorOrdenado(Integer[] arrayPadrao) {
+		this.vetorOrdenado = Arrays
+			.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+
+	public void populaVetorDesordenado(Integer[] arrayPadrao) {
+		this.vetorDesordenado = Arrays
+			.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+
+	public void populaVetorNegativos(Integer[] arrayPadrao) {
+		this.vetorNegativos = Arrays
+			.copyOf(arrayPadrao, arrayPadrao.length);
 	}
 
 	// FIM DOS METODOS AUXILIARES DA INICIALIZAÇÃO
@@ -106,4 +141,30 @@ public class StudentSortingTest {
 	 * SEGUIR A ESTRUTURA DOS MÉTODOS DE TESTE ACIMA DESCRITOS, ORDENANDO APENAS
 	 * UMA PARTE DO ARRAY.
 	 */
+
+	 @Test
+	public void testSortUnitario() {
+		genericTest(vetorUnitario);
+	}
+	
+	@Test
+	public void testSortDecrescente() {
+		genericTest(vetorDecrescente);
+	}
+
+	@Test
+	public void testSortOrdenado() {
+		genericTest(vetorOrdenado);
+	}
+
+	@Test
+	public void testSortDesordenado() {
+		genericTest(vetorDesordenado);
+	}
+
+	@Test
+	public void testSortNegativos() {
+		genericTest(vetorNegativos);
+	}
+
 }
