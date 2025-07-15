@@ -19,72 +19,46 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		if (array != null && array.length > 0 && leftIndex != rightIndex) {
+		
+        if (array != null && array.length > 0 && leftIndex != rightIndex) {
+            int max = array[leftIndex];
+            int min = array[leftIndex];
+            for (int i = leftIndex + 1; i <= rightIndex; i++) {
+                if (array[i] > max)  {
+                    max = array[i];
+                } else if (array[i] < min) {
+                    min = array[i];
+                }
+            }
 			Integer[] resposta = new Integer[array.length];
-			int tamanho = 0;
-			for (int i = 0; i < array.length; i++) {
-				if (array[i] > tamanho)
-					tamanho = array[i];
-			}
-			Integer[] arrayIndices = new Integer[tamanho + 1];
+            Integer[] arrayIndices = new Integer[(max-min) + 1];
 
-			for (int i = 0; i < arrayIndices.length; i++) {
-				arrayIndices[i] = 0;
-			}
+            for (int i = 0; i < arrayIndices.length; i ++) {
+                arrayIndices[i] = 0;
+            }
 
-			for (int i = 0; i < array.length; i++) {
-				int j = array[i];
-				arrayIndices[j] ++;
-			}
+            for (int i = 0; i < resposta.length; i++) {
+                resposta[i] = 0;
+            }
 
-			int indexResp = 0;
-			for (int i = 0; i <= tamanho; i++) {
-				if (arrayIndices[i] != 0) {
-					for (int j = indexResp; j < arrayIndices[i]; j ++) {
-						resposta[j] = i;
-					}
-				}
-			}
-		}
-	}
+            for (int i = 0; i < array.length; i++) {
+                int j = array[i];
+                arrayIndices[j - min] ++;
+            }
 
-	public static Integer[] print(Integer[] array, int leftIndex, int rightIndex) {
-		if (array != null && array.length > 0 && leftIndex != rightIndex) {
-			Integer[] resposta = new Integer[array.length];
-			int tamanho = 0;
-			for (int i = 0; i < array.length; i++) {
-				if (array[i] > tamanho)
-					tamanho = array[i];
-			}
-			Integer[] arrayIndices = new Integer[tamanho + 1];
 
-			for (int i = 0; i < arrayIndices.length; i++) {
-				arrayIndices[i] = 0;
-			}
+            for (int i = 1; i < arrayIndices.length; i ++) {
+                arrayIndices[i] += arrayIndices[i -1];
+            }
 
-			for (int i = 0; i < array.length; i++) {
-				int j = array[i];
-				arrayIndices[j] ++;
-			}
+            for (int i = (resposta.length) - 1; i >= 0; i--) {
+                resposta[arrayIndices[array[i] - min] -1] = array[i];
+                arrayIndices[array[i] -min] --;
+            }
 
-			int indexResp = 0;
-			for (int i = 0; i <= tamanho; i++) {
-				if (arrayIndices[i] != 0) {
-					for (int j = indexResp; j < resposta.length; j ++) {
-						resposta[j] = i;
-					}
-					indexResp++;
-				}
-			}
-			return resposta;
-		}
-		return array;
-	}
-
-	public static void main(String[] args) {
-		Integer[] array = {10, 0, 8, 4};
-		Integer[] resp = print(array, 0, 3);
-		System.out.println(Arrays.toString(resp));
-	}
-
+            for (int i = leftIndex; i <= rightIndex; i++) {
+                array[i] = resposta[i-leftIndex];
+            }
+        } 
+    }
 }
